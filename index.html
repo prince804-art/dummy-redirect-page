@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Continue Reading...</title>
-  <meta name="robots" content="noindex">
-  <style>
-    body { font-family: Arial; text-align: center; padding-top: 50px; }
-  </style>
-  <script>
-    setTimeout(function(){
-      window.location.href = "https://ketosl.com"; // 🔁 Replace with your target blog
-    }, 2000); // 2 seconds delay
-  </script>
-</head>
-<body>
-  <h1>Loading your content...</h1>
-  <p>Please wait while we redirect you to your content.</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Loading your content...</p>
+
+    <script>
+      // Get full URL parameter after ?url=
+      const params = new URLSearchParams(window.location.search);
+      const rawUrl = params.get("url");
+
+      // If valid, redirect
+      if (rawUrl) {
+        // Decode URI in case it's encoded
+        const decodedUrl = decodeURIComponent(rawUrl);
+        window.location.href = decodedUrl;
+      } else {
+        document.body.innerHTML = "<p>Invalid link provided.</p>";
+      }
+    </script>
+  </body>
 </html>
