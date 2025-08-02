@@ -11,8 +11,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background: #f1f1f1;
-        color: #333;
+        background: #f9f9f9;
       }
     </style>
   </head>
@@ -20,20 +19,22 @@
     <p>Loading your content...</p>
 
     <script>
-      // Get full target URL from query param
-      const params = new URLSearchParams(window.location.search);
-      const rawUrl = params.get("url");
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const rawUrl = params.get("url");
 
-      if (rawUrl && rawUrl.startsWith("http")) {
-        try {
-          // Decode in case URL was encoded
-          const finalUrl = decodeURIComponent(rawUrl);
-          window.location.href = finalUrl;
-        } catch (err) {
-          document.body.innerHTML = "<p>Invalid URL format.</p>";
+        if (rawUrl) {
+          const decodedUrl = decodeURIComponent(rawUrl.trim());
+          if (decodedUrl.startsWith("http://") || decodedUrl.startsWith("https://")) {
+            window.location.href = decodedUrl;
+          } else {
+            document.body.innerHTML = "<p>🚫 Invalid URL format.</p>";
+          }
+        } else {
+          document.body.innerHTML = "<p>❌ No URL found to redirect.</p>";
         }
-      } else {
-        document.body.innerHTML = "<p>Invalid or missing URL.</p>";
+      } catch (e) {
+        document.body.innerHTML = "<p>⚠️ Error during redirect.</p>";
       }
     </script>
   </body>
